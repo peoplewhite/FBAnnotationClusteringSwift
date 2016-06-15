@@ -13,16 +13,17 @@ public class FBAnnotationClusterView : MKAnnotationView {
     
     var count = 0
     
-    var fontSize:CGFloat = 12
+    public var fontSize:CGFloat = 12
     
     var imageName = "clusterSmall"
     var loadExternalImage : Bool = false
     
-    var borderWidth:CGFloat = 3
+    public var borderWidth:CGFloat = 3
     
-    var countLabel:UILabel? = nil
+    public var countLabel:UILabel? = nil
     
-    //var option : FBAnnotationClusterViewOptions? = nil
+    var smallRange = 0...5
+    var mediumRange = 6...15
     
     public init(annotation: MKAnnotation?, reuseIdentifier: String?, options: FBAnnotationClusterViewOptions?){
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -30,9 +31,14 @@ public class FBAnnotationClusterView : MKAnnotationView {
         let cluster:FBAnnotationCluster = annotation as! FBAnnotationCluster
         count = cluster.annotations.count
         
+        if options != nil {
+            smallRange = (options?.smallRange)!
+            mediumRange = (options?.mediumRange)!
+        }
+        
         // change the size of the cluster image based on number of stories
         switch count {
-        case 0...5:
+        case self.smallRange:
             fontSize = 12
             if (options != nil) {
                 loadExternalImage=true;
@@ -43,7 +49,7 @@ public class FBAnnotationClusterView : MKAnnotationView {
             }
             borderWidth = 3
             
-        case 6...15:
+        case self.mediumRange:
             fontSize = 13
             if (options != nil) {
                 loadExternalImage=true;
@@ -132,11 +138,16 @@ public class FBAnnotationClusterViewOptions : NSObject {
     var mediumClusterImage : String
     var largeClusterImage : String
     
-   
-    public init (smallClusterImage : String, mediumClusterImage : String, largeClusterImage : String) {
+    var smallRange:Range<Int>
+    var mediumRange:Range<Int>
+    
+    public init (smallClusterImage : String, mediumClusterImage : String, largeClusterImage : String,smallRange:Range<Int>,mediumRange:Range<Int>) {
         self.smallClusterImage = smallClusterImage;
         self.mediumClusterImage = mediumClusterImage;
         self.largeClusterImage = largeClusterImage;
+        
+        self.smallRange = smallRange
+        self.mediumRange = mediumRange
     }
     
 }
