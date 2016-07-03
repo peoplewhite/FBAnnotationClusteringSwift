@@ -55,7 +55,7 @@ public class FBClusteringManager: NSObject {
 		guard !zoomScale.isInfinite else { return [] }
 
 		let zoomLevel = FBClusteringManager.FBZoomScaleToZoomLevel(MKZoomScale(zoomScale))
-		let cellSize = FBClusteringManager.FBCellSizeForZoomLevel(zoomLevel) * 10
+		let cellSize = FBClusteringManager.FBCellSizeForZoomLevel(zoomLevel)
 
 		let scaleFactor: Double = zoomScale / Double(cellSize)
 
@@ -162,31 +162,33 @@ public class FBClusteringManager: NSObject {
 
 	public class func FBCellSizeForZoomLevel(zoomLevel: Int) -> CGFloat {
 
+		let x: CGFloat = 2.5
+
 		switch (zoomLevel) {
 		case 13:
-			return 64
+			return 64 * x
 		case 14:
-			return 64
+			return 64 * x
 		case 15:
-			return 64
+			return 64 * x
 		case 16:
-			return 32
+			return 32 * x * 2
 		case 17:
-			return 32
+			return 32 * x * 2
 		case 18:
-			return 32
+			return 32 * x * 2
 		case 18 ..< Int.max:
-			return 16
+			return 16 * x * 2
 
 		default:
 			// less than 13 zoom level
-			return 88
+			return 88 * x
 		}
 	}
 
 	public class func FBCellSizeForZoomScale(zoomScale: MKZoomScale) -> CGFloat {
 
-		let zoomLevel = FBClusteringManager.FBZoomScaleToZoomLevel(zoomScale) * 10
+		let zoomLevel = FBClusteringManager.FBZoomScaleToZoomLevel(zoomScale)
 		return FBClusteringManager.FBCellSizeForZoomLevel(zoomLevel)
 	}
 }
