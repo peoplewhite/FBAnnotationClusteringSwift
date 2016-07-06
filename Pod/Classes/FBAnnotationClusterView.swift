@@ -115,6 +115,7 @@ public class FBAnnotationClusterView: MKAnnotationView {
 		count = localCount;
 
 		countLabel?.text = "\(localCount)"
+		countLabel?.text = "9+"
 		setNeedsLayout()
 	}
 
