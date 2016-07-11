@@ -165,8 +165,6 @@ public class FBClusteringManager: NSObject {
 		let x: CGFloat = 2
 		let x2: CGFloat = 1.2
 
-		print("\(zoomLevel)")
-
 		switch (zoomLevel) {
 		case 13:
 			return 64 * x * x2
