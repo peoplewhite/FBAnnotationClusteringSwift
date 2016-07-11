@@ -162,8 +162,8 @@ public class FBClusteringManager: NSObject {
 
 	public class func FBCellSizeForZoomLevel(zoomLevel: Int) -> CGFloat {
 
-		let x: CGFloat = 1.5
-		let x2: CGFloat = 2
+		let x: CGFloat = 2
+		let x2: CGFloat = 1.2
 
 		print("\(zoomLevel)")
 
@@ -177,11 +177,11 @@ public class FBClusteringManager: NSObject {
 		case 16:
 			return 32 * x * x2
 		case 17:
-			return 32 * x * x2
+			return 32 * x
 		case 18:
-			return 32 * x * x2
+			return 20
 		case 18 ..< Int.max:
-			return 16 * x * x2
+			return 12
 
 		default:
 			// less than 13 zoom level
