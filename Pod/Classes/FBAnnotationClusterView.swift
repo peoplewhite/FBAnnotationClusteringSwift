@@ -28,6 +28,13 @@ public class FBAnnotationClusterView: MKAnnotationView {
 
 	public var annotationCluster = FBAnnotationCluster()
 
+	public var pressed: Bool = false {
+		didSet {
+			let imageName = self.pressed ? self.selectedImageName : self.imageName
+			self.image = UIImage(named: imageName)
+		}
+	}
+
 	public init(annotation: MKAnnotation?, reuseIdentifier: String?, options: FBAnnotationClusterViewOptions?) {
 		super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
 
@@ -121,8 +128,8 @@ public class FBAnnotationClusterView: MKAnnotationView {
 
 	override public var selected: Bool {
 		didSet {
-			let imageName = self.selected ? self.selectedImageName : self.imageName
-			self.image = UIImage(named: imageName)
+//			let imageName = self.selected ? self.selectedImageName : self.imageName
+//			self.image = UIImage(named: imageName)
 //			self.setNeedsLayout()
 		}
 	}
