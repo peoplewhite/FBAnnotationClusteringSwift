@@ -17,6 +17,7 @@ public class FBAnnotationClusterView: MKAnnotationView {
 
 	var imageName = "clusterSmall"
 	var selectedImageName = "clusterSmall"
+    var selectedBeforeImageName = "btn_bubble_grey"
 	var loadExternalImage: Bool = false
 
 	public var borderWidth: CGFloat = 3
@@ -31,6 +32,12 @@ public class FBAnnotationClusterView: MKAnnotationView {
 	public var pressed: Bool = false {
 		didSet {
 			let imageName = self.pressed ? self.selectedImageName : self.imageName
+			self.image = UIImage(named: imageName)
+		}
+	}
+	public var pressedToGrayColor: Bool = false {
+		didSet {
+            let imageName = self.pressedToGrayColor ? self.selectedImageName : self.selectedBeforeImageName
 			self.image = UIImage(named: imageName)
 		}
 	}
