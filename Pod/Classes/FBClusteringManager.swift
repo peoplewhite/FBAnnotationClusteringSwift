@@ -14,10 +14,14 @@ public protocol FBClusteringManagerDelegate {
 	func cellSizeFactorForCoordinator(coordinator: FBClusteringManager) -> CGFloat
 
 }
+public protocol FBClusteringManagerDelegateForCurrentMarkerAnnotation {
+    func addCurrentMarkerOnMap()
+}
 
 public class FBClusteringManager: NSObject {
 
 	public var delegate: FBClusteringManagerDelegate? = nil
+	public var delegateForCurrentMarkerAnnotation: FBClusteringManagerDelegateForCurrentMarkerAnnotation? = nil
 
 	var tree: FBQuadTree? = nil
 
@@ -145,6 +149,7 @@ public class FBClusteringManager: NSObject {
 
 			if let removeAnnotations = toRemove.allObjects as? [MKAnnotation] {
 				mapView.removeAnnotations(removeAnnotations)
+                self.delegateForCurrentMarkerAnnotation?.addCurrentMarkerOnMap()
 			}
 		}
 
