@@ -9,33 +9,33 @@
 import Foundation
 import MapKit
 
-public class FBAnnotationClusterView: MKAnnotationView {
+open class FBAnnotationClusterView: MKAnnotationView {
 
 	var count = 0
 
-	public var fontSize: CGFloat = 12
+	open var fontSize: CGFloat = 12
 
 	var imageName = "clusterSmall"
 	var selectedImageName = "clusterSmall"
     var selectedBeforeImageName = "btn_bubble_grey"
 	var loadExternalImage: Bool = false
 
-	public var borderWidth: CGFloat = 3
+	open var borderWidth: CGFloat = 3
 
-	public var countLabel: UILabel? = nil
+	open var countLabel: UILabel? = nil
 
 	var smallRange = 0...5
 	var mediumRange = 6...15
 
-	public var annotationCluster = FBAnnotationCluster()
+	open var annotationCluster = FBAnnotationCluster()
 
-	public var pressed: Bool = false {
+	open var pressed: Bool = false {
 		didSet {
 			let imageName = self.pressed ? self.selectedImageName : self.imageName
 			self.image = UIImage(named: imageName)
 		}
 	}
-	public var pressedToGrayColor: Bool = false {
+	open var pressedToGrayColor: Bool = false {
 		didSet {
             let imageName = self.pressedToGrayColor ? self.selectedImageName : self.selectedBeforeImageName
 			self.image = UIImage(named: imageName)
@@ -93,7 +93,7 @@ public class FBAnnotationClusterView: MKAnnotationView {
 
 		self.selectedImageName = (options?.selectedClusterImage)!
 
-		backgroundColor = UIColor.clearColor()
+		backgroundColor = UIColor.clear
 		setupLabel()
 		setTheCount(count)
 	}
@@ -111,21 +111,21 @@ public class FBAnnotationClusterView: MKAnnotationView {
 		countLabel = UILabel(frame: bounds)
 
 		if let countLabel = countLabel {
-			countLabel.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			countLabel.textAlignment = .Center
-			countLabel.backgroundColor = UIColor.clearColor()
-			countLabel.textColor = UIColor.whiteColor()
+			countLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+			countLabel.textAlignment = .center
+			countLabel.backgroundColor = UIColor.clear
+			countLabel.textColor = UIColor.white
 			countLabel.adjustsFontSizeToFitWidth = true
 			countLabel.minimumScaleFactor = 2
 			countLabel.numberOfLines = 1
-			countLabel.font = UIFont.boldSystemFontOfSize(fontSize)
-			countLabel.baselineAdjustment = .AlignCenters
+			countLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
+			countLabel.baselineAdjustment = .alignCenters
 			addSubview(countLabel)
 		}
 
 	}
 
-	func setTheCount(localCount: Int) {
+	func setTheCount(_ localCount: Int) {
 		count = localCount;
 
 		countLabel?.text = "\(localCount)"
@@ -133,7 +133,7 @@ public class FBAnnotationClusterView: MKAnnotationView {
 		setNeedsLayout()
 	}
 
-	override public var selected: Bool {
+	override open var isSelected: Bool {
 		didSet {
 //			let imageName = self.selected ? self.selectedImageName : self.imageName
 //			self.image = UIImage(named: imageName)
@@ -141,20 +141,20 @@ public class FBAnnotationClusterView: MKAnnotationView {
 		}
 	}
 
-	override public func layoutSubviews() {
+	override open func layoutSubviews() {
 
 		// Images are faster than using drawRect:
 
-		let imageAsset = UIImage(named: imageName, inBundle: (!loadExternalImage) ? NSBundle(forClass: FBAnnotationClusterView.self) : nil, compatibleWithTraitCollection: nil)
+		let imageAsset = UIImage(named: imageName, in: (!loadExternalImage) ? Bundle(for: FBAnnotationClusterView.self) : nil, compatibleWith: nil)
 
 		// UIImage(named: imageName)!
 
 		countLabel?.frame = self.bounds
 		image = imageAsset
-		centerOffset = CGPointZero
+		centerOffset = CGPoint.zero
 
 		// adds a white border around the green circle
-		layer.borderColor = UIColor.whiteColor().CGColor
+		layer.borderColor = UIColor.white.cgColor
 		layer.borderWidth = borderWidth
 		layer.cornerRadius = self.bounds.size.width / 2
 
@@ -162,15 +162,15 @@ public class FBAnnotationClusterView: MKAnnotationView {
 
 }
 
-public class FBAnnotationClusterViewOptions: NSObject {
+open class FBAnnotationClusterViewOptions: NSObject {
 	var smallClusterImage: String
 	var mediumClusterImage: String
 	var largeClusterImage: String
 
 	var selectedClusterImage: String
 
-	var smallRange: Range<Int>
-	var mediumRange: Range<Int>
+	var smallRange: CountableRange<Int>
+	var mediumRange: CountableRange<Int>
 
 	public init (selectedClusterImage: String, smallClusterImage: String, mediumClusterImage: String, largeClusterImage: String, smallRange: Range<Int>, mediumRange: Range<Int>) {
 		self.selectedClusterImage = selectedClusterImage
