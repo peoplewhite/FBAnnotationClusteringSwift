@@ -24,8 +24,8 @@ open class FBAnnotationClusterView: MKAnnotationView {
 
 	open var countLabel: UILabel? = nil
 
-	var smallRange = 0...5
-	var mediumRange = 6...15
+    var smallRange: Range<Int> = 0..<6
+	var mediumRange: Range<Int> = 6..<16
 
 	open var annotationCluster = FBAnnotationCluster()
 
@@ -98,10 +98,10 @@ open class FBAnnotationClusterView: MKAnnotationView {
 		setTheCount(count)
 	}
 
-	required override public init(frame: CGRect) {
-		super.init(frame: frame)
-
-	}
+//	required public init(frame: CGRect) {
+//		super.init(frame: frame)
+//
+//	}
 
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -169,8 +169,8 @@ open class FBAnnotationClusterViewOptions: NSObject {
 
 	var selectedClusterImage: String
 
-	var smallRange: CountableRange<Int>
-	var mediumRange: CountableRange<Int>
+	var smallRange: Range<Int>
+	var mediumRange: Range<Int>
 
 	public init (selectedClusterImage: String, smallClusterImage: String, mediumClusterImage: String, largeClusterImage: String, smallRange: Range<Int>, mediumRange: Range<Int>) {
 		self.selectedClusterImage = selectedClusterImage
